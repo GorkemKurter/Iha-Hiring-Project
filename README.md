@@ -6,8 +6,8 @@
 #Then type the following command on the same terminal:docker-compose up
 
 #For the first time tpye following commands on the terminal:
-docker-compose exec web python manage.py migrate auth
-docker-compose exec web python manage.py migrate
+#docker-compose exec web python manage.py migrate auth
+#docker-compose exec web python manage.py migrate
 
 #Open any browser and type the following URL:http://localhost:8000/
 #You can connect the webapp anytime with docker desktop app now.
