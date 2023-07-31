@@ -1,0 +1,65 @@
+<!-- templates/kiralama_list.html -->
+
+<!-- base.html şablonunu genişlet -->
+{% extends 'base.html' %}
+
+<!-- İçerik bloğunu tanımla -->
+{% block content %}
+  <!-- Başlık -->
+  <h1>Kiralamalar</h1>
+
+  <!-- Filtreleme formu -->
+  <form method="get">
+    <div>
+      <h2>Filtreleme</h2>
+      <!-- Kullanıcıya tarih formatı hakkında not verir -->
+      <h4>Not: Lütfen tarihi yyyy-aa-gg formatında giriniz</h4>
+      <!-- Kiralama listesi için filtreleme formu alanlarını temsil eden formu bas -->
+      {{ filter.form.as_p }}
+    </div>
+
+    <!-- Filtreleri uygulama ve sıfırlama butonları -->
+    <div>
+      <button type="submit">Filtreleri Uygula</button>
+      <a href="{% url 'kiralama-list' %}">
+        <button type="button">Filtreleri Sıfırla</button>
+      </a>
+    </div>
+  </form>
+
+  <br>
+
+  <!-- Eğer filtrelenmiş bir sonuç varsa, tabloyu oluştur -->
+  {% if filter.qs %}
+    <table>
+      <tr>
+        <th>Marka</th>
+        <th>Tarih ve Saat Aralığı</th>
+        <th>Teslim Tarihi</th>
+        <th>Kiralayan Üye</th>
+        <th>Güncelle</th>
+        <th>Sil</th>
+      </tr>
+      <!-- Filtrelenmiş kiralamaları tabloya eklemek için döngü -->
+      {% for kiralama in filter.qs %}
+        <tr>
+          <!-- Kiralanan İHA'nın markasını göster -->
+          <td>{{ kiralama.iha.marka }}</td>
+          <!-- Kiralama tarih ve saat aralığını göster -->
+          <td>{{ kiralama.tarih_ve_saat_araliklari }}</td>
+          <!-- Teslim tarihini göster -->
+          <td>{{ kiralama.teslim_tarihi }}</td>
+          <!-- Kiralayan üyeyi göster -->
+          <td>{{ kiralama.kiralayan_uye }}</td>
+          <!-- Kiralamayı güncellemek için bağlantı -->
+          <td><a href="{% url 'kiralama-update' kiralama.pk %}">Güncelle</a></td>
+          <!-- Kiralamayı silmek için bağlantı ve onay mesajı -->
+          <td><a href="{% url 'kiralama-delete' kiralama.pk %}" onclick="return confirm('Bu kiralama kaydını silmek istediğinizden emin misiniz?')">Sil</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+  <!-- Eğer filtrelenmiş bir sonuç yoksa, mesajı göster -->
+  {% else %}
+    <p>Kiralama bulunmamaktadır.</p>
+  {% endif %}
+{% endblock %}

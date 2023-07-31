@@ -1,0 +1,19 @@
+<!-- base.html şablonunu genişlet -->
+{% extends 'base.html' %}
+
+<!-- İçerik bloğunu tanımla -->
+{% block content %}
+  <!-- Başlık -->
+  <h1>Kiralama Ekle</h1>
+  <!-- Not -->
+  <h4>Not: Lütfen tarihi yyyy-aa-gg formatında giriniz</h4>
+  <!-- Ekleme formu -->
+  <form method="post">
+    <!-- CSRF koruması için token -->
+    {% csrf_token %}
+    <!-- İlaç ekleme formu alanlarını temsil eden formu bas -->
+    {{ form.as_p }}
+    <!-- Ekleme işlemini gerçekleştirmek için buton -->
+    <button type="submit">Ekle</button>
+  </form>
+{% endblock %}

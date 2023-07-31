@@ -1,0 +1,18 @@
+<!-- base.html şablonunu genişlet -->
+{% extends 'base.html' %}
+
+<!-- İçerik bloğunu tanımla -->
+{% block content %}
+  <!-- Başlık -->
+  <h1>İHA Sil</h1>
+  <!-- Silme işlemini onaylama mesajı -->
+  <p>Bu İHA kaydını silmek istediğinizden emin misiniz?</p>
+  <!-- Silme işlemi için form -->
+  <form method="post">
+    {% csrf_token %}
+    <!-- Silme işlemini gerçekleştiren buton -->
+    <button type="submit">Sil</button>
+    <!-- İptal için link -->
+    <a href="{% url 'iha-list' %}">İptal</a>
+  </form>
+{% endblock %}

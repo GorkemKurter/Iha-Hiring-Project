@@ -1,0 +1,5 @@
+Django
+djangorestframework
+django-bootstrap-datepicker-plus
+django-filter
+psycopg2

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- HTML belgesinin başlangıcı -->
+<html>
+<head>
+    <!-- Sayfanın başlık etiketi -->
+    <title>IHA Kiralama Projesi</title>
+</head>
+<body>
+    <!-- Navigasyon menüsü -->
+    <nav>
+        <ul>
+            <!-- Ana Sayfa linki -->
+            <li><a href="{% url 'home' %}">Ana Sayfa</a></li>
+            <!-- İha Listesi İşlemleri linki -->
+            <li><a href="{% url 'iha-list' %}">İha Listesi İşlemleri</a></li>
+            <!-- Kiralama Listesi İşlemleri linki -->
+            <li><a href="{% url 'kiralama-list' %}">Kiralama Listesi İşlemleri</a></li>
+            <!-- Yeni Iha Ekle linki -->
+            <li><a href="{% url 'iha-ekle' %}">Yeni Iha Ekle</a></li>
+            <!-- Yeni Kiralama Ekle linki -->
+            <li><a href="{% url 'kiralama-ekle' %}">Yeni Kiralama Ekle</a></li>
+            <!-- Kullanıcı oturum açmışsa, Çıkış Yap linki gösterilir; aksi takdirde Giriş Yap ve Üye Ol linkleri gösterilir -->
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Çıkış Yap</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Giriş Yap</a></li>
+                <li><a href="{% url 'signup' %}">Üye Ol</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <!-- İçerik bloğu -->
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
+

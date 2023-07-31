@@ -1,0 +1,19 @@
+<!-- base.html şablonunu genişlet -->
+{% extends 'base.html' %}
+
+<!-- İçerik bloğunu tanımla -->
+{% block content %}
+  <!-- Başlık -->
+  <h1>Kiralama Sil</h1>
+  <!-- Onay mesajı -->
+  <p>Bu kiralama kaydını silmek istediğinizden emin misiniz?</p>
+  <!-- Silme formu -->
+  <form method="post">
+    <!-- CSRF koruması için token -->
+    {% csrf_token %}
+    <!-- Silme işlemini gerçekleştirmek için buton -->
+    <button type="submit">Sil</button>
+    <!-- İptal için geri dönüş linki -->
+    <a href="{% url 'kiralama-list' %}">İptal</a>
+  </form>
+{% endblock %}

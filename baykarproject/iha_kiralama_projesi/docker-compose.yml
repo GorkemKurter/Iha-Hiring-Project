@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  web:
+    build: .  # Django uygulamasının bulunduğu dizindeki Dockerfile ile imajı oluşturur.
+    command: python manage.py runserver 0.0.0.0:8000  # Django uygulamasını 0.0.0.0:8000 üzerinde çalıştırır.
+    volumes:
+      - .:/code  # Host makinedeki mevcut çalışma dizinini Docker konteynerinde /code dizinine bağlar.
+    ports:
+      - "8000:8000"  # Django uygulamasının 8000 portuna bağlanır.
+    depends_on:
+      - db  # 'web' servisinin çalışabilmesi için 'db' servisinin başlamasını bekler.
+    networks:
+      - my_network  # 'web' ve 'db' servislerinin aynı ağı paylaşmasını sağlar.
+
+  db:
+    image: postgres  # PostgreSQL resmi Docker imajını kullanır.
+    environment:
+      POSTGRES_DB: "postgres"  # PostgreSQL veritabanının adını belirtir.
+      POSTGRES_USER: "postgres"  # PostgreSQL veritabanı kullanıcısını belirtir.
+      POSTGRES_PASSWORD: "14531299"  # PostgreSQL veritabanı kullanıcısının şifresini belirtir.
+      POSTGRES_HOST_AUTH_METHOD: trust  # PostgreSQL veritabanına kimlik doğrulama olmaksızın erişim izni verir.
+    networks:
+      - my_network  # 'web' ve 'db' servislerinin aynı ağı paylaşmasını sağlar.
+
+networks:
+  my_network:  # 'my_network' adında bir Docker ağı oluşturur.

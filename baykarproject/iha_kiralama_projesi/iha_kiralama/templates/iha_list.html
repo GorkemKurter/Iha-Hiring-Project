@@ -1,0 +1,57 @@
+<!-- base.html şablonunu genişlet -->
+{% extends 'base.html' %}
+
+<!-- İçerik bloğunu tanımla -->
+{% block content %}
+  <!-- Başlık -->
+  <h1>İHA Listesi</h1>
+
+  <!-- Filtreleme bölümü -->
+  <div>
+    <h2>Filtreleme</h2>
+    <!-- Filtreleme formu -->
+    <form method="get">
+      <!-- Filtreleme formunu sayfada göster -->
+      {{ filter.form.as_p }}
+      <div>
+        <!-- Filtreleri uygulamak için buton -->
+        <button type="submit">Filtreleri Uygula</button>
+        <!-- Filtreleri sıfırlamak için buton ve link -->
+        <a href="{% url 'iha-list' %}">
+          <button type="button">Filtreleri Sıfırla</button>
+        </a>
+      </div>
+    </form>
+  </div>
+
+  <br>
+
+  <!-- Filtre sonucunda bir İHA listesi varsa -->
+  {% if filter.qs %}
+    <!-- İHA listesi için tablo -->
+    <table>
+      <tr>
+        <th>Marka</th>
+        <th>Model</th>
+        <th>Ağırlık</th>
+        <th>Kategori</th>
+        <th>Güncelle</th>
+        <th>Sil</th>
+      </tr>
+      <!-- Her İHA için tablo satırı oluştur -->
+      {% for iha in filter.qs %}
+        <tr>
+          <td>{{ iha.marka }}</td>
+          <td>{{ iha.model }}</td>
+          <td>{{ iha.agirlik }}</td>
+          <td>{{ iha.kategori }}</td>
+          <td><a href="{% url 'iha-update' iha.pk %}">Güncelle</a></td>
+          <td><a href="{% url 'iha-delete' iha.pk %}" onclick="return confirm('Bu İHA kaydını silmek istediğinizden emin misiniz?')">Sil</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+  <!-- Filtre sonucunda İHA listesi boşsa -->
+  {% else %}
+    <p>İHA bulunmamaktadır.</p>
+  {% endif %}
+{% endblock %}

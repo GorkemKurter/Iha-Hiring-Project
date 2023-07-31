@@ -1,0 +1,51 @@
+<!-- HTML belgesinin başlangıcı -->
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Sayfanın başlık etiketi -->
+    <title>Ana Sayfa</title>
+</head>
+<body>
+    <!-- Kullanıcı oturum açmışsa kullanıcının adını göster, aksi takdirde "Ziyaretçi" yazısını göster -->
+    <h1>Hoşgeldiniz, {% if user.is_authenticated %}{{ user.username }}{% else %}Ziyaretçi{% endif %}</h1>
+    
+    <!-- Kullanıcı oturum açmışsa, İHA Listesi İşlemleri, Kiralama Listesi İşlemleri, Yeni İHA Ekle, Yeni Kiralama Ekle ve Çıkış Yap linklerini göster -->
+    {% if user.is_authenticated %}
+        <a href="{% url 'iha-list' %}">İHA Listesi İşlemleri</a><br>
+        <a href="{% url 'kiralama-list' %}">Kiralama Listesi İşlemleri</a><br>
+        <a href="{% url 'iha-ekle' %}">Yeni İHA Ekle</a><br>
+        <a href="{% url 'kiralama-ekle' %}">Yeni Kiralama Ekle</a><br>
+        <a href="{% url 'logout' %}">Çıkış Yap</a><br>
+    <!-- Kullanıcı oturum açmamışsa, Giriş Yap ve Üye Ol linklerini göster -->
+    {% else %}
+        <a href="{% url 'login' %}">Giriş Yap</a><br>
+        <a href="{% url 'signup' %}">Üye Ol</a><br>
+    {% endif %}
+
+    <br>
+    <!-- İhaların listesi -->
+    <h2>Envanterdeki Tüm İhalar</h2>
+    <ul>
+        <!-- Tüm ihaları döngüyle dolaş ve her birini liste olarak göster -->
+        {% for iha in ihalar %}
+            <li>{{ iha }}</li>
+        <!-- Eğer ihalar yoksa, "İHA bulunmamaktadır." yazısını göster -->
+        {% empty %}
+            <li>İHA bulunmamaktadır.</li>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <!-- Kiralamaların listesi -->
+    <h2>Tüm Kiralamalar</h2>
+    <ul>
+        <!-- Tüm kiralamaları döngüyle dolaş ve her birini liste olarak göster -->
+        {% for kiralama in kiralama %}
+            <li>{{ kiralama.kiralayan_uye }} - {{ kiralama.iha }}</li>
+        <!-- Eğer kiralamalar yoksa, "Kiralama bulunmamaktadır." yazısını göster -->
+        {% empty %}
+            <li>Kiralama bulunmamaktadır.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!-- templates/login.html -->
+
+<!-- Başlık etiketi -->
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <!-- Sayfa başlığı -->
+    <h1>Login</h1>
+ 
+    <!-- Giriş formu -->
+    <form method="post">
+        <!-- CSRF koruma için token ekle -->
+        {% csrf_token %}
+        <!-- Django formunu form alanlarını paragraf etiketi olarak göster -->
+        {{ form.as_p }}
+        <!-- Giriş butonu -->
+        <button type="submit">Login</button>
+        <!-- Üye ol butonu -->
+        <a href="{% url 'signup' %}">
+            <button type="button">Sign up</button>
+        </a>   
+    </form>
+</body>
+</html>
