@@ -12,6 +12,8 @@
 #Open any browser and type the following URL:http://localhost:8000/
 #You can connect the webapp anytime with docker desktop app now.
 
+#If any error occurs please control the your Docker desktop app and make sure that all containers are running.
+
 Requirements for project:
 DOCKER Desktop app
 IDE for Django such as Pycharm,VS Code...
